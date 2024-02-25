@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: hsl(36, 90%, 50%);
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: hsl(235, 85%, 71%);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 60px; 
+        }
+    
+        h1, h2 {
+            text-align: center;
+        }
+    
+        form {
+            margin-bottom: 20px;
+            text-align: center; 
+        }
+    
+        label {
+            display: block;  
+            margin-bottom: 10px;
+        }
+    
+        .select-wrapper {
+            margin-bottom: 20px;
+            text-align: center;
+            padding:10px;
+        }
+    
+        .select-box {
+            cursor: pointer;
+        }
+    
+        .select-options {
+            position: center;
+            align:center;
+            top: 50%;
+            left: 0;
+            width:auto;
+            min-width: 10%; 
+            max-height: 50px; 
+            overflow-y: auto; 
+            border-top: none;
+            border-radius: 3px;
+            display:flex;
+            z-index: 1;
+            padding:10px;
+        }
+        
+        .select-options.active {
+            display: block;
+        }
+    
+        .select-options select {
+            width:100%;
+            padding: 10px;
+            border-radius: 5px;
+            outline:none;
+            border-style:solid;
+            border-color:black;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px); 
+            height: auto;
+            border-radius: 5px;
+            outline:none;
+            border-style:solid;
+            border-color:black;
+            padding: 10px;
+            box-sizing: border-box; 
+        }
+        
+        .submit-button {
+            width: auto;
+            border-radius: 5px;
+            background-color: green;
+            border-style: solid;
+            border-color: black;
+            outline:none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .textbox-container {  
+            margin-top: 20px;
+            border-radius: 5px;
+            border-style: solid;
+            border-color: black;
+            padding: 10px;
+        }
+
+        .textbox {  
+            width: 100%; 
+            height: 150px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            resize: none;
+        }
+
+        /* Footer styles */
+    footer {
+        background-color: hsl(36, 90%, 50%); 
+        padding: 10px;
+        padding-bottom:10px;
+        text-align: center; 
+        position:relative; 
+        width: 100%; 
+        bottom: 0; 
+        left: 0; 
+        color: #333; 
+        font-size: 14px;
+          
+        }
+    </style>
+        
+</head>
+<body>
+    <div class="container">
+        <h1>TRANSLATE INTO YOUR LANGUAGE</h1>
+        <form method="POST">
+            <label for="translate">Enter Word/Sentence:</label>
+            <input type="text" name="translate" id="translate" required>
+            <div class="select-wrapper">
+                <div class="select-box">Select Language</div>
+                <div class="select-options">
+                    <select name="language" id="language">
+                        <option value="">Choose Language</option>
+                        {% for code, name in languages.items() %}
+                            <option value="{{ code }}">{{ name|capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <input class="submit-button" type="submit" value="Translate">
+        </form>
+        {% if translation %}
+            <h2>TRANSLATION</h2>
+            <div class="textbox-container">
+                <textarea class="textbox" readonly>{{ translation }}</textarea>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <div>
+            <p> Developed by Dipak Shinde</p>
+            <p>All Rights Reserved &copy; To Dipak Shinde</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
